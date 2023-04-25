@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.title.label }}<br>
+        {{ form.title(class="form-control") }}<br>
+        {% for error in form.title.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.content.label }}<br>
+        {{ form.content(class="form-control") }}<br>
+        {% for error in form.content.errors %}
+            <p content="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.typef.label (style="width:25%;")}}
+        {{ form.price.label (style="width:30%;")}}
+        {{ form.price_type.label (style="width:25%;")}}<br>
+        {{ form.typef(class="form-control", style="display:inline;width:20%") }}
+        {{ form.emty.label(style="width:4.5%")}}
+        {{ form.price(class="form-control", style="display:inline;width:20%") }}
+        {{ "руб."}}
+        {{ form.emty.label(style="width:6.5%")}}
+        {{ form.price_type(class="form-control", style="display:inline;width:20%") }}<br>
+        {% for error in form.typef.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        {% for error in form.price.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        {% for error in form.price_type.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.pr_fio.label (style="width:45%;")}}
+        {{ form.po_fio.label (style="width:30%;")}}<br>
+        {{ form.pr_fio(class="form-control", style="display:inline;width:40%") }}
+        {{ form.emty.label(style="width:4.5%")}}
+        {{ form.po_fio(class="form-control", style="display:inline;width:40%") }}<br>
+        {% for error in form.pr_fio.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        {% for error in form.po_fio.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.pr_data.label (style="width:45%;")}}
+        {{ form.po_data.label (style="width:30%;")}}<br>
+        {{ form.pr_data(class="form-control", style="display:inline;width:40%") }}
+        {{ form.emty.label(style="width:4.5%")}}
+        {{ form.po_data(class="form-control", style="display:inline;width:40%") }}<br>
+        {% for error in form.pr_data.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        {% for error in form.po_data.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+{% endblock %}
