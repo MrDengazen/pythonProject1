@@ -82,6 +82,28 @@
             </p>
         {% endfor %}
     </p>
+    {{ form.pr_cer.label (style="width:20%;")}}
+        {{ form.pr_no.label (style="width:24.9%;")}}
+    {{ form.po_cer.label (style="width:20%;")}}
+        {{ form.po_no.label (style="width:30%;")}}<br>
+        {{ form.pr_no(class="form-control", style="display:inline;width:15%") }}
+        {{ form.emty.label(style="width:4.5%")}}
+        {{ form.pr_cer(class="form-control", style="display:inline;width:19.9%") }}
+    {{ form.emty.label(style="width:4.5%")}}
+    {{ form.po_no(class="form-control", style="display:inline;width:15%") }}
+        {{ form.emty.label(style="width:4.5%")}}
+        {{ form.po_cer(class="form-control", style="display:inline;width:19.9%") }}<br>
+        {% for error in form.pr_no.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+        {% for error in form.pr_cer.errors %}
+            <p class="alert alert-danger" role="alert">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>

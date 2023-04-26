@@ -4,7 +4,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from data import db_session
 from data.cdel import CDEL
 from data.users import User
-from forms.news import NewsForm
+from forms.cdel import CdelForm
 from forms.user import RegisterForm, LoginForm
 
 app = Flask(__name__)
@@ -93,11 +93,11 @@ def logout():
     return redirect("/")
 
 
-@app.route('/news',
+@app.route('/cdel',
            methods=['GET', 'POST'])
 @login_required
 def add_news():
-    form = NewsForm()
+    form = CdelForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         cdel = CDEL()
@@ -111,19 +111,23 @@ def add_news():
         cdel.po_fio = form.po_fio.data
         cdel.pr_data = form.pr_data.data
         cdel.po_data = form.po_data.data
+        cdel.pr_cer = form.pr_cer.data
+        cdel.pr_no = form.pr_no.data
+        cdel.po_cer = form.po_cer.data
+        cdel.po_no = form.po_no.data
         current_user.cdel.append(cdel)
         db_sess.merge(current_user)
         db_sess.commit()
         return redirect('/')
-    return render_template('news.html',
+    return render_template('cdel.html',
                            title='Добавление сделки',
                            form=form)
 
 
-@app.route('/news/<int:id>', methods=['GET', 'POST'])
+@app.route('/cdel/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_news(id):
-    form = NewsForm()
+    form = CdelForm()
     if request.method == "GET":
         db_sess = db_session.create_session()
         cdel = db_sess.query(CDEL).filter(CDEL.id == id,
@@ -140,6 +144,11 @@ def edit_news(id):
             form.po_fio.data = cdel.po_fio
             form.pr_data.data = cdel.pr_data
             form.po_data.data = cdel.po_data
+            form.pr_cer.data = cdel.pr_cer
+            form.pr_no.data = cdel.pr_no
+            form.po_cer.data = cdel.po_cer
+            form.po_no.data = cdel.po_no
+
         else:
             abort(404)
     if form.validate_on_submit():
@@ -158,20 +167,24 @@ def edit_news(id):
             cdel.po_fio = form.po_fio.data
             cdel.pr_data = form.pr_data.data
             cdel.po_data = form.po_data.data
+            cdel.pr_cer = form.pr_cer.data
+            cdel.pr_no = form.pr_no.data
+            cdel.po_cer = form.po_cer.data
+            cdel.po_no = form.po_no.data
             db_sess.commit()
             return redirect('/')
         else:
             abort(404)
-    return render_template('news.html',
+    return render_template('cdel.html',
                            title='Редактирование сделки',
                            form=form
                            )
 
 
-@app.route('/news_view/<int:id>', methods=['GET', 'POST'])
+@app.route('/cdel_view/<int:id>', methods=['GET', 'POST'])
 @login_required
 def view_news(id):
-    form = NewsForm()
+    form = CdelForm()
     db_sess = db_session.create_session()
     cdel = db_sess.query(CDEL).filter(CDEL.id == id,
                                           CDEL.user == current_user
@@ -186,6 +199,10 @@ def view_news(id):
     form.po_fio.data = cdel.po_fio
     form.pr_data.data = cdel.pr_data
     form.po_data.data = cdel.po_data
+    form.pr_cer.data = cdel.pr_cer
+    form.pr_no.data = cdel.pr_no
+    form.po_cer.data = cdel.po_cer
+    form.po_no.data = cdel.po_no
     form.title.render_kw = {'disabled': 'disabled'}
     form.content.render_kw = {'disabled': 'disabled'}
     form.is_private.render_kw = {'disabled': 'disabled'}
@@ -196,15 +213,19 @@ def view_news(id):
     form.po_fio.render_kw = {'disabled': 'disabled'}
     form.pr_data.render_kw = {'disabled': 'disabled'}
     form.po_data.render_kw = {'disabled': 'disabled'}
+    form.pr_cer.render_kw = {'disabled': 'disabled'}
+    form.pr_no.render_kw = {'disabled': 'disabled'}
+    form.po_cer.render_kw = {'disabled': 'disabled'}
+    form.po_no.render_kw = {'disabled': 'disabled'}
     if form.validate_on_submit():
             return redirect('/')
-    return render_template('news.html',
+    return render_template('cdel.html',
                            title='Редактирование сделки',
                            form=form
                            )
 
 
-@app.route('/news_delete/<int:id>', methods=['GET', 'POST'])
+@app.route('/cdel_delete/<int:id>', methods=['GET', 'POST'])
 @login_required
 def news_delete(id):
     db_sess = db_session.create_session()

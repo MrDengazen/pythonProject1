@@ -22,6 +22,10 @@ class CDEL(SqlAlchemyBase):
     po_fio = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     pr_data = sqlalchemy.Column(sqlalchemy.DateTime, nullable=True)
     po_data = sqlalchemy.Column(sqlalchemy.DateTime, nullable=True)
+    pr_cer = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    pr_no = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    po_cer = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    po_no = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     user_id = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey("users.id"))
     user = orm.relationship('User')
